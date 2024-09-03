@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Group Create</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f8f9fa;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #343a40;
+    }
+
+    .btn-custom {
+      background-color: #11855d;
+      color: #fff;
+    }
+
+    .btn-custom:hover {
+      background-color: #0a573d;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <form th:action="@{/group/save}" th:method="post" th:object="${group}">
+    <h1>Group Create</h1>
+    <div class="mb-3">
+      <label for="groupName" class="form-label">Group Name</label>
+      <input type="text" id="groupName" th:field="*{groupName}" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="dateOfStart" class="form-label">Date of Start</label>
+      <input type="date" id="dateOfStart" th:field="*{dateOfStart}" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="dateOfFinish" class="form-label">Date of Finish</label>
+      <input type="date" id="dateOfFinish" th:field="*{dateOfFinish}" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="courseId" class="form-label">Course</label>
+      <select id="courseId" th:field="*{courseId}" class="form-select" required>
+        <option th:each="course : ${courses}" th:value="${course.id}" th:text="${course.courseName}"></option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-custom">Save</button>
+    <a href="/course/find-all" class="btn btn-primary">Back to Course List</a>
+
+  </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Company Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .navbar {
+            width: 100%;
+            background-color: #333;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        .navbar a {
+            float: left;
+            display: block;
+            color: black;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        .navbar a:hover {
+            background-color: black;
+            color: black;
+        }
+
+        .navbar .icon {
+            display: none;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 70px auto 20px; /* adjusted margin */
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: green;
+        }
+
+        tr:nth-child(even) {
+            background-color:blueviolet;
+        }
+
+        tr:hover {
+            background-color:darkblue;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            color:black;
+            cursor: pointer;
+        }
+
+        .btn-course {
+            background-color: deepskyblue;
+        }
+
+        .btn-update {
+            background-color: darkblue;
+        }
+
+        .btn-delete {
+            background-color: red;
+        }
+
+        .btn-add {
+            background-color: #11855d;
+            margin: 20px 0;
+        }
+
+        .btn i {
+            margin-right: 5px;
+        }
+
+        @media screen and (max-width: 600px) {
+            .navbar a:not(:first-child) {
+                display: none;
+            }
+
+            .navbar a.icon {
+                float: right;
+                display: block;
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            .navbar.responsive {
+                position: relative;
+            }
+
+            .navbar.responsive .icon {
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+
+            .navbar.responsive a {
+                float: none;
+                display: block;
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    </a>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>COMPANY NAME</th>
+        <th>LOCATED COUNTRY</th>
+        <th>UPDATE</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="company : ${companyList}">
+        <td th:text="${company.id}"></td>
+        <td th:text="${company.companyName}"></td>
+        <td th:text="${company.locatedCountry}"></td>
+        <td>
+            <a th:href="@{/company/courses/{companyId}(companyId=${company.id})}">
+                <button class="btn btn-course"><i class="fa fa-book"></i> Course</button>
+            </a>
+
+            <a th:href="@{/users/update/{id}(id=${company.id})}">
+                <button class="btn btn-update"><i class="fa fa-edit"></i> Update</button>
+            </a>
+            <a th:href="@{/users/delete/{id}(id=${company.id})}">
+                <button class="btn btn-delete"><i class="fa fa-trash"></i> Delete</button>
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/company/add">
+    <button class="btn btn-add"><i class="fa fa-plus"></i> ADD COMPANY</button>
+</a>
+
+<script>
+    function toggleNavbar() {
+        var x = document.getElementById("myNavbar");
+        if (x.className === "navbar") {
+            x.className += " responsive";
+        } else {
+            x.className = "navbar";
+        }
+    }
+</script>
+</body>
+</html>

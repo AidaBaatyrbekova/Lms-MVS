@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Students</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #ece9e6, #ffffff);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            margin-top: 100px; /* Adjust according to header height */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+        }
+
+        .search-container input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 200px;
+            margin-right: 10px;
+        }
+
+        .search-container button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #11855d;
+            color: white;
+            cursor: pointer;
+        }
+
+        .search-container button:hover {
+            background-color: #0a5c3b;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            background-color: #11855d;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #0a5c3b;
+        }
+
+        .btn-update {
+            background-color: darkblue;
+        }
+
+        .btn-delete {
+            background-color: darkred;
+        }
+
+        .btn-add {
+            background-color: #11855d;
+        }
+    </style>
+</head>
+<body>
+<h1>Search Students</h1>
+<div class="container">
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search for students">
+    </div>
+</div>
+<table>
+    <thead>
+    <tr style="background-color: aqua">
+        <th>ID</th>
+        <th>NAME</th>
+        <th>LAST NAME</th>
+        <th>EMAIL</th>
+        <th>ROLE</th>
+        <th>GROUP</th>
+        <th>UPDATE</th>
+        <th>DELETE</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${students}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.firstName}"></td>
+        <td th:text="${user.lastName}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.role}"></td>
+        <td th:text="${user.group.groupName}"></td>
+        <td>
+            <a th:href="@{/user/update/{id}(id=${user.id})}">
+                <button class="btn btn-update">Update</button>
+            </a>
+        </td>
+        <td>
+            <a th:href="@{/users/delete/{id}(id=${user.id})}">
+                <button class="btn btn-delete">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                        <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                    </svg>
+                </button>
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a href="/instructor/add">
+    <button class="btn btn-add">Add User</button>
+</a>
+<script>
+    document.getElementById('searchInput').addEventListener('input', function () {
+        var filter = this.value.toLowerCase();
+        var rows = document.querySelectorAll('#studentTable tr');
+
+        rows.forEach(function (row) {
+            var firstName = row.cells[1].innerText.toLowerCase();
+            var lastName = row.cells[2].innerText.toLowerCase();
+            var email = row.cells[3].innerText.toLowerCase();
+            var studyFormat = row.cells[4].innerText.toLowerCase();
+            if (firstName.includes(filter) || lastName.includes(filter) || email.includes(filter) || studyFormat.includes(filter)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

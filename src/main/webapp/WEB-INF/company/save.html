@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>save</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<style>
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        text-decoration: none;
+        color: #ffffff;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: background-color 0.3s;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+    }
+
+    .btn-update {
+        background-color: #007bff;
+    }
+
+    .btn-update:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-delete {
+        background-color: #dc3545;
+    }
+
+    .btn-delete:hover {
+        background-color: #c82333;
+    }
+
+    .btn-add {
+        background-color: #28a745;
+    }
+
+    .btn-add:hover {
+        background-color: #218838;
+    }
+
+    .fas {
+        margin-right: 5px;
+    }
+</style>
+    <div class="navbar">
+        <a href="/">HOME</a>
+        <a href="/company/find-all">COMPANY</a>
+        <a href="/user/find-all"><i class="fas fa-user"></i> USERS</a>
+        <a href="/course/find-all"><i class="fas fa-book"></i> COURSES</a>
+        <a href="/group/find-all"><i class="fas fa-users"></i> GROUPS</a>
+        <a href="/instructor/find-all"><i class="fas fa-chalkboard-teacher"></i> INSTRUCTORS</a>
+        <a href="/user/students"><i class="fas fa-graduation-cap"></i> STUDENTS</a>
+        <a href="/mailing"><i class="fas fa-envelope"></i> MAILING</a>
+        <a href="/user/profile"><i class="fas fa-user-circle"></i> PROFILE</a>
+        <i class="fas fa-bars"></i>
+        </a>
+    </div>
+
+<form th:action="@{save}"
+      th:method="post"
+      th:object="${company}">
+
+    <h1>COMPANY CREATE</h1>
+
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="inputGroup-sizing-default2">Company name</span>
+        <input type="text" th:field="*{companyName}" class="form-control" aria-label="Sizing example input"
+               aria-describedby="inputGroup-sizing-default2">
+    </div>
+
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="inputGroup-sizing-default3">Located country</span>
+        <input type="text" th:field="*{locatedCountry}" class="form-control" aria-label="Sizing example input"
+               aria-describedby="inputGroup-sizing-default3">
+    </div>
+
+    <button type="submit" style="background-color: #11855d">save</button>
+
+</form>
+
+</body>
+</html>
